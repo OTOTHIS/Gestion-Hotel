@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef} from "react";
 import ReservationList from "../data/reservationList";
 import ChambresListe from "../data/chambreList";
 import swal from "sweetalert";
@@ -7,66 +7,72 @@ export default function Reserver() {
   const { SetReservation } = ReservationList();
   const { chambres, changeReserveStatus, setChambres } = ChambresListe();
 
-  const fullName = useRef("");
-  const id = useRef("");
-  const debut = useRef("");
-  const fin = useRef("");
-
-  const fullNameVal = fullName.current.value;
-  const idVal = id.current.value;
-  const debutVal = debut.current.value;
-  const finVal = fin.current.value;
-
-  const handleClick = () => {
-    if (
-      fullNameVal === "" ||
-      idVal === "" ||
-      debutVal === "" ||
-      finVal === ""
-    ) {
-      swal("ERROR", "Les Champs est vide", "error");
-    }
-
-    const ancienVal = chambres.filter(
-      (item) => item.numero === parseInt(idVal)
-    )[0];
-
-    if (ancienVal && ancienVal.length === -1 && ancienVal.length === 0) {
-      swal("ERROR", "Ce numéro de chambre n'existe pas", "error");
-      return false;
-    } else if ( ancienVal) {
+  const clearChamps = () => {
+    
+      Fullname.current.value="",
+       numero.current.value="",
+       debut.current.value="",
+       fin.current.value=""
      
-      swal("Changer la chambre", "Cette chambre a été réservée", "error");
-      return false;
+   
     }
-     else {
+  
+  const Fullname = useRef(null)
+  const numero = useRef(null)
+  const debut = useRef(null)
+ const fin = useRef(null)
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  let  FormData={
+      Fullname:Fullname.current.value,
+      numero:numero.current.value,
+      debut:debut.current.value,
+      fin:fin.current.value
+    }
+  
+    console.log(FormData)
+    const ancienVal = chambres.filter(
+      (item) => item.numero === parseInt(FormData.numero)
+    )[0];
+      
+    if (ancienVal && (ancienVal.length === -1 || ancienVal.length === 0)) {
+      swal("ERROR", "Ce numéro de chambre n'existe pas", "error");
+      clearChamps();
+      return false;
+    } else if (ancienVal && ancienVal.reserve) {
+     clearChamps();
+      swal("Changer la chambre", "Cette chambre a été réservée", "error");
+      
+      return false;
+    } else {
+
+
+  if(FormData.Fullname ==="" || FormData.numero ==="" || FormData.debut ==="" || FormData.fin ==="" || Object.keys(FormData).length ===0  ) {
+    clearChamps();
+    swal("ERROR", "Champs Vide", "error");
+    return false
+ }
+
       // eslint-disable-next-line no-unused-vars
-      setChambres((prevChambres) => changeReserveStatus(parseInt(idVal), true));
-      const payload = {
-        fullName: fullNameVal,
-        numero: idVal,
-        debut: debutVal,
-        fin: finVal,
-      };
+      setChambres((prevChambres) =>
+        changeReserveStatus(parseInt(FormData.numero), true)
+      );
 
       SetReservation((prev) => {
         if (Array.isArray(prev)) {
-          return [...prev, payload];
+          return [...prev, FormData];
         } else {
-          return [payload];
+          return [FormData];
         }
-      });
-      fullName.current.value = "";
-      id.current.value= "";
-      debut.current.value= "";
-      fin.current.value= "";
+      }); clearChamps();
       swal("Good job!", "La reservation est bien ajouté!", "success");
     }
   };
 
   return (
     <div className="mt-28 w-1/2 mx-auto">
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-12">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
@@ -87,10 +93,9 @@ export default function Reserver() {
                 <div className="mt-2">
                   <input
                     type="text"
-                    name=" Fullname"
+                    name="Fullname"
                     id="Fullname"
-                    ref={fullName}
-                    required
+                  ref={Fullname}
                     placeholder="Full name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -107,9 +112,9 @@ export default function Reserver() {
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="chambreNum"
+                    name="numero"
                     id="chambreNum"
-                    ref={id}
+                    ref={numero}
                     required
                     placeholder=" Numero de chambre"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -129,9 +134,9 @@ export default function Reserver() {
                 <div className="mt-2">
                   <input
                     type="datetime-local"
-                    name="debut-date"
+                    name="debut"
                     id="debut-date"
-                    ref={debut}
+                 ref={debut}
                     required
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -148,7 +153,7 @@ export default function Reserver() {
                 <div className="mt-2">
                   <input
                     type="datetime-local"
-                    name="findate"
+                    name="fin"
                     id="findate"
                     ref={fin}
                     required
@@ -168,8 +173,8 @@ export default function Reserver() {
             Cancel
           </button>
           <button
-            onClick={handleClick}
-            type="button"
+           
+            type="submit"
             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Save
