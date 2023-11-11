@@ -47,12 +47,7 @@ const ReservationList = () => {
     } else {
       console.log("No reservation ends now");
     }
-
-
-    
   }, []);
-
-
 
   useEffect(() => {
     if (reservation.length > 0) {

@@ -1,14 +1,11 @@
-
 import swal from "sweetalert";
 import ReservationList from "../data/reservationList";
 import { formatedDate } from "../partials/functions";
 import ChambresListe from "../data/chambreList";
 
-
 export default function ListReservationPage() {
-  const { reservation , SetReservation } = ReservationList();
- const {changeReserveStatus , setChambres} = ChambresListe()
-
+  const { reservation, SetReservation } = ReservationList();
+  const { changeReserveStatus, setChambres } = ChambresListe();
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-24">
@@ -44,33 +41,36 @@ export default function ListReservationPage() {
               <td className="px-6 py-4">{formatedDate(item.debut)}</td>
               <td className="px-6 py-4">{formatedDate(item.fin)}</td>
               <td className="px-6 py-4">
-                <button onClick={()=>swal({
-                    title: "Are you sure?",
-                    text: "To delete this reservation",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                  })
-                  .then((willDelete) => {
-                    if (willDelete) {
-
-                        const updatedReservation = reservation.filter((reser) => reser?.numero !== item.numero );
+                <button
+                  onClick={() =>
+                    swal({
+                      title: "Are you sure?",
+                      text: "To delete this reservation",
+                      icon: "warning",
+                      buttons: true,
+                      dangerMode: true,
+                    }).then((willDelete) => {
+                      if (willDelete) {
+                        const updatedReservation = reservation.filter(
+                          (reser) => reser?.numero !== item.numero
+                        );
                         SetReservation(updatedReservation);
-                        changeReserveStatus(parseInt(item.numero) , false)
-                        setChambres(changeReserveStatus(parseInt(item.numero) , false))
-                      swal("Poof! Your imaginary file has been deleted!", {
-                        icon: "success",
-                      });
-                    } else {
-                        
-                      swal("Your imaginary file is safe!");
-                    }
-                  }) 
-                }>
-                    delete
+                        changeReserveStatus(parseInt(item.numero), false);
+                        setChambres(
+                          changeReserveStatus(parseInt(item.numero), false)
+                        );
+                        swal("Poof! Your imaginary file has been deleted!", {
+                          icon: "success",
+                        });
+                      } else {
+                        swal("Your imaginary file is safe!");
+                      }
+                    })
+                  }
+                >
+                  delete
                 </button>
               </td>
-            
             </tr>
           ))}
         </tbody>

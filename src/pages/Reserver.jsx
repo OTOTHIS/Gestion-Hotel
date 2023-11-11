@@ -11,17 +11,17 @@ export default function Reserver() {
   // eslint-disable-next-line no-unused-vars
   const { id } = useParams();
 
-
   useEffect(() => {
-  
-    if (id && chambres.filter((item) => item.numero === parseInt(id))[0] !== 0) {
+    if (
+      id &&
+      chambres.filter((item) => item.numero === parseInt(id))[0] !== 0
+    ) {
       numero.current.value = id;
     } else if (id === undefined) {
-      numero.current.value = ""
+      numero.current.value = "";
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   const clearChamps = () => {
     (Fullname.current.value = ""),
@@ -88,10 +88,10 @@ export default function Reserver() {
   };
 
   return (
-    <div className="mt-28 w-1/2 mx-auto">
+    <div className="mt-28 w-1/12 md:1/3 px-5 mx-auto">
       <form onSubmit={handleSubmit}>
         <div className="space-y-12">
-          <div className="border-b border-gray-900/10 pb-12">
+          <div className="border-b  border-gray-900/10 pb-12">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               Personal Information
             </h2>
@@ -99,8 +99,8 @@ export default function Reserver() {
               Use a permanent address where you can receive mail.
             </p>
 
-            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div className="sm:col-span-3">
+            <div className="mt-10 grid grid-cols-1 mx-8 gap-x-6 gap-y-8 sm:grid-cols-6">
+              <div className="sm:col-span-3 ">
                 <label
                   htmlFor="first-name"
                   className="block text-sm font-medium leading-6 text-gray-900"
@@ -115,7 +115,7 @@ export default function Reserver() {
                     ref={Fullname}
                     placeholder="Full name"
                     required
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block px-3 w-full   rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -135,17 +135,17 @@ export default function Reserver() {
                     ref={numero}
                     required
                     placeholder=" Numero de chambre"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block px-3 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
             </div>
 
-            <div className="flex justify-center mt-5 mx-auto  text-center">
-              <div className="w-1/3 mx-8">
+            <div className="flex flex-col items-center mt-5 mx-5 text-center">
+              <div className="md:w-full md:mx-8 ">
                 <label
-                  htmlFor="debut-date"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  htmlFor="debut"
+                  className="block text-sm w-full font-medium leading-6 text-gray-900"
                 >
                   Date du debut
                 </label>
@@ -153,18 +153,17 @@ export default function Reserver() {
                   <input
                     type="datetime-local"
                     name="debut"
-                    id="debut-date"
+                    id="debut"
                     ref={debut}
                     required
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
-
-              <div className="w-1/3">
+              <div className="mt-5 md:w-full md:mx-8 ">
                 <label
                   htmlFor="findate"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm w-full font-medium leading-6 text-gray-900"
                 >
                   Date du Fin
                 </label>
@@ -175,10 +174,11 @@ export default function Reserver() {
                     id="findate"
                     ref={fin}
                     required
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full  rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
-              </div>
+              </div>  
+
             </div>
           </div>
         </div>

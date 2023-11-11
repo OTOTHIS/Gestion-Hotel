@@ -2,20 +2,21 @@ import { useEffect, useRef } from "react";
 import ChambresListe from "../data/chambreList";
 import swal from "sweetalert";
 
-
 export default function AddChambre() {
   const numero = useRef(null);
   const prix = useRef(null);
   const type = useRef(null);
-  const { setChambres , chambres } = ChambresListe();
+  const { setChambres, chambres } = ChambresListe();
 
-  
   useEffect(() => {
-    const maxNumero = chambres?.reduce((max, chambre) => (chambre.numero > max ? chambre.numero : max), -Infinity);
+    const maxNumero = chambres?.reduce(
+      (max, chambre) => (chambre.numero > max ? chambre.numero : max),
+      -Infinity
+    );
 
-    numero.current.value = parseInt(maxNumero)+1
+    numero.current.value = parseInt(maxNumero) + 1;
   }, [chambres]);
-  
+
   const handleClick = () => {
     let formData = {
       numero: parseInt(numero.current.value),
@@ -24,10 +25,9 @@ export default function AddChambre() {
       image: type.current.value + ".jpg",
       reserve: false,
     };
-  
+
     setChambres((prev) => [...prev, formData]);
- prix.current.value = "",
-    type.current.value = ""
+    (prix.current.value = ""), (type.current.value = "");
     swal("ERROR", "la chambre est bien ajoutz", "success");
   };
   return (
@@ -36,7 +36,7 @@ export default function AddChambre() {
         <div className="grid md:grid-cols-2 md:gap-6">
           <div className="relative z-0 w-full mb-6 group">
             <input
-            readOnly
+              readOnly
               type="text"
               name="numero"
               id="numero"
@@ -94,8 +94,6 @@ export default function AddChambre() {
         >
           Submit
         </button>
-
-        
       </form>
     </div>
   );

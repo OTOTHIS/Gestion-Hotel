@@ -75,7 +75,7 @@ const ChambresListe = () => {
     //     }
   ]);
   const changeReserveStatus = (numero, newStatus) => {
-    return chambres.map(chambre => {
+    return chambres.map((chambre) => {
       if (chambre.numero === numero) {
         return { ...chambre, reserve: newStatus };
       }
@@ -83,30 +83,27 @@ const ChambresListe = () => {
     });
   };
 
-
   useEffect(() => {
     const storedChambres = JSON.parse(localStorage.getItem("chambres"));
-    if (storedChambres && storedChambres.length > 0  ) {
+    if (storedChambres && storedChambres.length > 0) {
       setChambres(storedChambres);
-    }else {
-      console.log("no chambre exist")
+    } else {
+      console.log("no chambre exist");
     }
   }, []);
 
- 
   useEffect(() => {
-   if(chambres?.length > 0) {
-    localStorage.setItem("chambres", JSON.stringify(chambres));
-   }
+    if (chambres?.length > 0) {
+      localStorage.setItem("chambres", JSON.stringify(chambres));
+    }
   }, [chambres]);
-  return { changeReserveStatus , chambres, setChambres  };
+  return { changeReserveStatus, chambres, setChambres };
 };
 
 export default ChambresListe;
 
 // test data
 
-
 //  let exemple =  [
-//   
+//
 // ]

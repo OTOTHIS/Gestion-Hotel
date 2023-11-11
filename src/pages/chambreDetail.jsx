@@ -7,14 +7,11 @@ export default function ChambreDetail() {
   const { chambres } = ChambresListe();
 
   const chambre = chambres.filter((item) => item.numero === parseInt(id))[0];
-  if (!chambre) { 
-    return <Loading />
+  if (!chambre) {
+    return <Loading />;
   }
   return (
-
-   
     <section className="text-gray-600 body-font mt-5 overflow-hidden">
-         
       <div className="container px-5 py-24 mx-auto">
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
           <img
@@ -52,7 +49,10 @@ export default function ChambreDetail() {
               <span className="title-font font-medium text-2xl text-gray-900">
                 ${chambre.prix}
               </span>
-              <Link className="flex ml-auto" to={"../Reserver/"+chambre.numero}>
+              <Link
+                className="flex ml-auto"
+                to={"../Reserver/" + chambre.numero}
+              >
                 <button className=" text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
                   Reserver
                 </button>

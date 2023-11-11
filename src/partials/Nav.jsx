@@ -24,7 +24,7 @@ export default function NavBar() {
           <span className="sr-only">Your Company</span>
           <img
             className="h-8 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            src="./hotel-icon.png"
             alt=""
           />
         </a>
@@ -48,7 +48,7 @@ export default function NavBar() {
       </div>
       <div className="hidden lg:flex lg:flex-1 lg:justify-end">
         <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-          Log in <span aria-hidden="true">&rarr;</span>
+           <span aria-hidden="true">&rarr;</span>
         </a>
       </div>
     </nav>
@@ -91,7 +91,7 @@ export default function NavBar() {
                 href="#"
                 className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
               >
-                Log in
+               
               </a>
             </div>
           </div>
