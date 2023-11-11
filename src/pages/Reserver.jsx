@@ -1,58 +1,78 @@
-import { useRef} from "react";
+// eslint-disable-next-line no-unused-vars
+import { useEffect, useRef } from "react";
 import ReservationList from "../data/reservationList";
 import ChambresListe from "../data/chambreList";
 import swal from "sweetalert";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function Reserver() {
   const { SetReservation } = ReservationList();
   const { chambres, changeReserveStatus, setChambres } = ChambresListe();
+  // eslint-disable-next-line no-unused-vars
+  const { id } = useParams();
+  // eslint-disable-next-line no-unused-vars
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (id && chambres.filter((item) => item.numero === parseInt(id))[0]) {
+      numero.current.value = id;
+    } else if (id === undefined) {
+      console.log("hello");
+    } else {
+      swal("ERROR", "Ce numéro de chambre n'existe pas", "error");
+      navigate("/ListeChambre");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  console.log(id);
 
   const clearChamps = () => {
-    
-      Fullname.current.value="",
-       numero.current.value="",
-       debut.current.value="",
-       fin.current.value=""
-     
-   
-    }
-  
-  const Fullname = useRef(null)
-  const numero = useRef(null)
-  const debut = useRef(null)
- const fin = useRef(null)
-  
+    (Fullname.current.value = ""),
+      (numero.current.value = ""),
+      (debut.current.value = ""),
+      (fin.current.value = "");
+  };
+
+  const Fullname = useRef(null);
+  const numero = useRef(null);
+  const debut = useRef(null);
+  const fin = useRef(null);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-  let  FormData={
-      Fullname:Fullname.current.value,
-      numero:numero.current.value,
-      debut:debut.current.value,
-      fin:fin.current.value
-    }
-  
-    console.log(FormData)
+
+    let FormData = {
+      Fullname: Fullname.current.value,
+      numero: numero.current.value,
+      debut: debut.current.value,
+      fin: fin.current.value,
+    };
+
     const ancienVal = chambres.filter(
       (item) => item.numero === parseInt(FormData.numero)
     )[0];
-      
+
     if (ancienVal && (ancienVal.length === -1 || ancienVal.length === 0)) {
       swal("ERROR", "Ce numéro de chambre n'existe pas", "error");
       clearChamps();
       return false;
     } else if (ancienVal && ancienVal.reserve) {
-     clearChamps();
       swal("Changer la chambre", "Cette chambre a été réservée", "error");
-      
+      clearChamps();
+
       return false;
     } else {
-
-
-  if(FormData.Fullname ==="" || FormData.numero ==="" || FormData.debut ==="" || FormData.fin ==="" || Object.keys(FormData).length ===0  ) {
-    clearChamps();
-    swal("ERROR", "Champs Vide", "error");
-    return false
- }
+      if (
+        FormData.Fullname === "" ||
+        FormData.numero === "" ||
+        FormData.debut === "" ||
+        FormData.fin === "" ||
+        Object.keys(FormData).length === 0
+      ) {
+        swal("ERROR", "Champs Vide", "error");
+        return false;
+      }
 
       // eslint-disable-next-line no-unused-vars
       setChambres((prevChambres) =>
@@ -65,8 +85,9 @@ export default function Reserver() {
         } else {
           return [FormData];
         }
-      }); clearChamps();
+      });
       swal("Good job!", "La reservation est bien ajouté!", "success");
+      clearChamps();
     }
   };
 
@@ -95,7 +116,7 @@ export default function Reserver() {
                     type="text"
                     name="Fullname"
                     id="Fullname"
-                  ref={Fullname}
+                    ref={Fullname}
                     placeholder="Full name"
                     required
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -137,7 +158,7 @@ export default function Reserver() {
                     type="datetime-local"
                     name="debut"
                     id="debut-date"
-                 ref={debut}
+                    ref={debut}
                     required
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -174,7 +195,6 @@ export default function Reserver() {
             Cancel
           </button>
           <button
-           
             type="submit"
             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >

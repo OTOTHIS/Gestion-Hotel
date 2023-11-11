@@ -52,7 +52,7 @@ export default function ChambreDetail() {
               <span className="title-font font-medium text-2xl text-gray-900">
                 ${chambre.prix}
               </span>
-              <Link className="flex ml-auto" to="../addReservation">
+              <Link className="flex ml-auto" to={"../Reserver/"+chambre.numero}>
                 <button className=" text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
                   Reserver
                 </button>
