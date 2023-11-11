@@ -3,24 +3,21 @@ import { useEffect, useRef } from "react";
 import ReservationList from "../data/reservationList";
 import ChambresListe from "../data/chambreList";
 import swal from "sweetalert";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export default function Reserver() {
   const { SetReservation } = ReservationList();
   const { chambres, changeReserveStatus, setChambres } = ChambresListe();
   // eslint-disable-next-line no-unused-vars
   const { id } = useParams();
-  // eslint-disable-next-line no-unused-vars
-  const navigate = useNavigate();
+
 
   useEffect(() => {
-    if (id && chambres.filter((item) => item.numero === parseInt(id))[0]) {
+  
+    if (id && chambres.filter((item) => item.numero === parseInt(id))[0] !== 0) {
       numero.current.value = id;
     } else if (id === undefined) {
       numero.current.value = ""
-    } else {
-      swal("ERROR", "Ce numéro de chambre n'existe pas", "error");
-      navigate("/ListeChambre");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

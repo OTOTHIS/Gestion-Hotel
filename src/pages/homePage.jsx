@@ -1,7 +1,13 @@
+import { useEffect } from "react"
 
 export default function HomePage() {
   
+ useEffect(() => {
+   
+ localStorage.removeItem("reservation")
 
+ }, [])
+ 
   return (
    
     

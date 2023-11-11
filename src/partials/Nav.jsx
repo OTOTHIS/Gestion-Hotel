@@ -8,7 +8,9 @@ const navigation = [
   { name: 'Home', href: '/' },
   { name: 'List des Chambres', href: 'ListeChambre' },
   { name: 'effecutez un reservation', href: 'Reserver' },
-  { name: 'List de reservation', href: '#' },
+  { name: 'List de reservation', href: 'listeDeReservation' },
+  { name: 'Ajouter un chambre', href: 'addChambre' },
+  { name: 'Chambres disponsible', href: 'ChambreDisponible' },
 ]
 
 

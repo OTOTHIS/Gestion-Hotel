@@ -6,7 +6,9 @@ import ChambresListe from "./chambreList";
 
 const ReservationList = () => {
   const [reservation, SetReservation] = useState([]);
-  const { changeReserveStatus } = ChambresListe();
+  const { changeReserveStatus, setChambres } = ChambresListe();
+
+  let i = 0;
   // Load data from local storage on component mount
   useEffect(() => {
     const storedreservation = JSON.parse(localStorage.getItem("reservations"));
@@ -14,7 +16,6 @@ const ReservationList = () => {
       SetReservation(storedreservation);
     }
   }, []);
-
 
   useEffect(() => {
     const currentDate = new Date().toISOString();
@@ -37,23 +38,26 @@ const ReservationList = () => {
       (reservation) => new Date(reservation.fin) < new Date(currentDate)
     );
 
-    if (updatedReservations.length === 0) {
-      console.log("No reservation ends now");
-    } else {
-     
-      updatedReservations.forEach((item) =>
-        changeReserveStatus(item.numero, false)
-      );
-      SetReservation(updatedReservations)
-   
-    }
-  }, [reservation, changeReserveStatus]);
+    if (updatedReservations.length > 0) {
+      SetReservation((prev) => [...prev, ...updatedReservations]);
 
+      updatedReservations.forEach((item) =>
+        setChambres(changeReserveStatus(item.numero, false))
+      );
+    } else {
+      console.log("No reservation ends now");
+    }
+
+
+    
+  }, []);
 
 
 
   useEffect(() => {
-    localStorage.setItem("reservations", JSON.stringify(reservation));
+    if (reservation.length > 0) {
+      localStorage.setItem("reservations", JSON.stringify(reservation));
+    }
   }, [reservation]);
   return { reservation, SetReservation };
 };

@@ -3,7 +3,7 @@
 // eslint-disable-next-line react-refresh/only-export-components
 export function formatedDate(date) {
 
-  return String(date).split('T') 
+  return String(date).replace("T" , " ")
 }
 
 
