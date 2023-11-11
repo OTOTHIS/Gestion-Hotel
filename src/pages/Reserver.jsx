@@ -17,7 +17,7 @@ export default function Reserver() {
     if (id && chambres.filter((item) => item.numero === parseInt(id))[0]) {
       numero.current.value = id;
     } else if (id === undefined) {
-      console.log("hello");
+      numero.current.value = ""
     } else {
       swal("ERROR", "Ce numéro de chambre n'existe pas", "error");
       navigate("/ListeChambre");
@@ -25,7 +25,6 @@ export default function Reserver() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(id);
 
   const clearChamps = () => {
     (Fullname.current.value = ""),

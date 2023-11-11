@@ -40,14 +40,12 @@ const ReservationList = () => {
     if (updatedReservations.length === 0) {
       console.log("No reservation ends now");
     } else {
-      console.log(updatedReservations);
+     
       updatedReservations.forEach((item) =>
         changeReserveStatus(item.numero, false)
       );
-
-      if (JSON.stringify(updatedReservations) !== JSON.stringify(reservation)) {
-        SetReservation(updatedReservations);
-      }
+      SetReservation(updatedReservations)
+   
     }
   }, [reservation, changeReserveStatus]);
 
