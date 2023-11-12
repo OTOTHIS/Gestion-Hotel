@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import ChambresListe from "./chambreList";
 
 const ReservationList = () => {
@@ -16,6 +16,7 @@ const ReservationList = () => {
       SetReservation(storedreservation);
     }
   }, []);
+
 
   useEffect(() => {
     const currentDate = new Date().toISOString();
@@ -48,6 +49,9 @@ const ReservationList = () => {
       console.log("No reservation ends now");
     }
   }, []);
+
+
+    
 
   useEffect(() => {
     if (reservation.length > 0) {

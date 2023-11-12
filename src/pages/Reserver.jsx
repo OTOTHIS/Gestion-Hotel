@@ -71,9 +71,8 @@ export default function Reserver() {
       }
 
       // eslint-disable-next-line no-unused-vars
-      setChambres((prevChambres) =>
-        changeReserveStatus(parseInt(FormData.numero), true)
-      );
+      setChambres((prevChambres) =>setChambres(changeReserveStatus(parseInt(FormData.numero)), true))
+      
 
       SetReservation((prev) => {
         if (Array.isArray(prev)) {
@@ -88,7 +87,7 @@ export default function Reserver() {
   };
 
   return (
-    <div className="mt-28 w-1/12 md:1/3 px-5 mx-auto">
+    <div className="mt-28 w-1/2 md:1/3 px-5 mx-auto">
       <form onSubmit={handleSubmit}>
         <div className="space-y-12">
           <div className="border-b  border-gray-900/10 pb-12">
