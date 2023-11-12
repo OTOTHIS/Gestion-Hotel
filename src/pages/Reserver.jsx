@@ -87,7 +87,7 @@ export default function Reserver() {
   };
 
   return (
-    <div className="mt-28 w-1/2 md:1/3 px-5 mx-auto">
+    <div className="mt-28 w-full md:w-1/3 px-5 mx-auto">
       <form onSubmit={handleSubmit}>
         <div className="space-y-12">
           <div className="border-b  border-gray-900/10 pb-12">
